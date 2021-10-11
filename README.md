@@ -1,1 +1,1 @@
-This is a small test project for laravel 8.x
+This is a small project for laravel 8.x with e-commerce functionality

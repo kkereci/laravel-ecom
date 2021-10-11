@@ -5,13 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
+
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() 
     {
         //$products = DB::table('products')->get();
         $products = Product::get();
-        dd($products);
+
+        return view('products.index')->with([
+            'products' => $products,
+        ]);
     }
 
     public function create()
@@ -19,33 +29,54 @@ class ProductController extends Controller
     return view('products.create');
     }
 
-    public function store()
+    public function store(ProductRequest $request)
     {
-    return view('products.store');
+        //$validator in Req\prodReq
+        $product = Product::create($request->validated());
+        //session()->flash('success', "A new product with ID of {$product->id} has been created");
+        return redirect()
+            ->route('products.index')
+            ->withSuccess("A new product with ID of {$product->id} has been created")
+            ->withErrors("If available, must have stock");
     }
 
-    public function show($product) 
+    public function show(Product $product) 
     {
         //$product = DB::table('products')->where('id', $product)->first();
-        $product = DB::table('products')->find($product);
+        //$product = Product::findOrFail($product);
        
-
-        dd($product);
-    return view('products.show');
+        return view('products.show')->with([
+            'product' => $product,
+        ]);
     }
     
     public function edit($product) 
     {
-    return "Form to edit product {$product}";
+        return view('products.edit')->with([
+        'product' => Product::findOrFail($product), 
+    ]);
     }
 
-    public function update($product) 
+    public function update(ProductRequest $request, Product $product) 
     {
-    return "Form to update product {$product}";
+       //$product = Product::findOrFail($product);
+       $product->update($request->validated());
+       return redirect()
+       ->action('ProductController@index')
+       ->withSuccess("The product with ID of {$product->id} has been updated");
     }
 
-    public function destroy($product) 
+    public function destroy(Product $product) 
     {
-    return "Form to destroy product {$product}";
+        //$product = Product::findOrFail($product);   
+        $product->delete();
+
+        //return redirect()->back();   
+        //return redirect()->route('products.index');
+        return redirect()
+        ->action('ProductController@index')
+        ->withSuccess("The product with ID of {$product->id} has been deleted");
+
     }
+    
 }

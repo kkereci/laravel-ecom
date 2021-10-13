@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Order;
+use App\Models\Cart;
 
 class User extends Authenticatable
 {
@@ -46,4 +48,8 @@ class User extends Authenticatable
     protected $dates = [
         'admin_since',
     ];
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id');
+    }
 }

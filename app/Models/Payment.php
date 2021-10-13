@@ -13,10 +13,15 @@ class Payment extends Model
     protected $fillable = [
         'amount',
         'paid_at',
+        'order_id',
     ];
 
     //DATE processing.
     protected $dates = [
         'paid_at',
     ];
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

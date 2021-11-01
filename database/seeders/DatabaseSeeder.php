@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+Use App\Models\Image;
+Use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Payment;
@@ -19,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $products = Product::factory(50)->create();
 
-        $products = User::factory(20)->create();
+        $users = User::factory(20)->create();
 
         $orders = Order::factory(10)
         ->make()

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $products = Product::factory(50)->create();
+        $products = Product::factory(50)->has(Image::factory()->count(1), 'images')->create();
 
         $users = User::factory(20)->create();
 
@@ -34,5 +34,7 @@ class DatabaseSeeder extends Seeder
         //$payment->save(); 
         $order->payment()->save($payment);
         });
+
+        //$product = Product::factory(50)->has(Image::factory()->count(1), 'images')->create()
     }
 }

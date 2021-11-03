@@ -71,6 +71,9 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('carts.index') }}">Cart</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>

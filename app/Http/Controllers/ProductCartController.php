@@ -18,7 +18,18 @@ class ProductCartController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        //
+        $cart = Cart::create(); 
+        $quantity = $cart->products()
+        ->find($product->id)
+        ->pivot
+        ->quantity ?? 0;
+
+        $cart->products()->attach([
+            $product->id =>['quantity' => $quantity + 1],
+
+        ]);
+
+        return redirect()->back();
     }
 
 

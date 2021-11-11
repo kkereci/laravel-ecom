@@ -41,6 +41,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
+        $this->mapPanelRoutes();
+
     }
 
     protected function mapApiRoutes()
@@ -57,6 +59,18 @@ class RouteServiceProvider extends ServiceProvider
         ->namespace($this->namespace)
         ->group(base_path('routes/web.php'));
     }
+
+
+    protected function mapPanelRoutes()
+    {
+        Route::prefix('panel')
+        ->namespace("{$this->namespace}\Panel")
+        ->middleware(['web', 'auth'])
+        ->group(base_path('routes/panel.php'));
+    }
+
+
+
     /**
      * Configure the rate limiters for the application.
      *

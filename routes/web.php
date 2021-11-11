@@ -29,7 +29,6 @@ Route::get('/', 'MainController@main')->name('main');
 
 // Route::delete('products/{product}', 'ProductController@destroy')->name('products.destroy');
  
-Route::resource('products', 'ProductController');
 
 Route::resource('carts', 'CartController')->only(['index']);
 
@@ -40,3 +39,5 @@ Route::resource('products.carts', 'ProductCartController')->only(['store', 'dest
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('orders', 'OrderController')->only(['create', 'store']);

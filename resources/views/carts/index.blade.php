@@ -6,6 +6,7 @@
 @if (! isset($cart) || $cart->products->isEmpty())
 <div class="alert alert-warning">Your cart is empty</div>
 @else   
+<a class="btn btn-success mb-3" href="{{ route('orders.create')}}">Order</a>
 
 <div class="row">
     @foreach ($cart->products as $product)

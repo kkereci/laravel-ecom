@@ -33,10 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @if (auth()->user()->isAdmin())
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                         </li>
-
+                        @endif
                         @inject('cartService', 'App\Services\CartService')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('carts.index') }}">Cart ({{ $cartService->countProducts() }})</a>
